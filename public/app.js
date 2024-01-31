@@ -13,17 +13,18 @@ function api(url) {
         return data;
     });
 }
-let reciept = document.querySelector('.reciept');
-console.log(reciept);
 function runApp() {
+    let receipt = document.querySelector('.receipt');
     api("https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1")
         .then(response => {
         console.log(response);
-        // Display(response, reciept);
+        Display(response, receipt);
     })
         .catch(error => {
         console.error('Error fetching data:', error.message);
+        console.error(error);
     });
 }
-runApp();
-export {};
+document.addEventListener("DOMContentLoaded", function () {
+    runApp();
+});

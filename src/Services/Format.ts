@@ -1,50 +1,46 @@
- import { Product } from "../Classes/Product.js";
+import { Product } from "../Classes/Product.js";
 
- export function format(products: Product[]) : HTMLDivElement {
-    let output = document.createElement('div');
-    products.forEach(product => {
-        const nameParagraph= document.createElement('p');
-        nameParagraph.innerHTML = `...&nbsp;Name: ${product.name}`;
-        output.appendChild(nameParagraph);
+export function format(products: Product[], container: HTMLUListElement) {
 
-        const priceParagraph= document.createElement('p');
-        priceParagraph.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;Price: ${product.price}`;
-        output.appendChild(priceParagraph);
+  products.forEach(product => {
+    const nameLi = document.createElement('li');
+    nameLi.innerHTML = `...&nbsp;Name: ${product.name}`;
+    container.appendChild(nameLi);
 
-        const descriptionParagraph= document.createElement('p');
-        descriptionParagraph.innerHTML = `${
-              product.description
-                ? `<p>&nbsp;&nbsp;&nbsp;&nbsp;Description: ${product.description.slice(
-                    0,
-                    10
-                  )}...</p>`
-                : ""
-            }; `
-        output.appendChild(descriptionParagraph);
+    const priceLi = document.createElement('li');
+    priceLi.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;Price: ${product.price}`;
+    container.appendChild(priceLi);
 
-        const weightParagraph= document.createElement('p');
-        weightParagraph.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;Weight: ${
-               product.weight !== undefined ? product.weight + "g" : "N/A"}`;
-        output.appendChild(weightParagraph);
+    const descriptionLi = document.createElement('li');
+    descriptionLi.innerHTML = `${product.description
+      ? `&nbsp;&nbsp;&nbsp;&nbsp;Description: ${product.description.slice(
+        0,
+        10
+      )}...`
+      : ""
+      } `
+    container.appendChild(descriptionLi);
+    const weightLi = document.createElement('li');
+    weightLi.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;Weight: ${product.weight !== undefined ? product.weight + "g" : "N/A"}`;
+    container.appendChild(weightLi);
 
-    });  
-    return output;  
+  });
 }
 
-export function sortAndGroupByDomestic(products : Product[], isDomestic : boolean) :Product[]{
- const sortedProducts = products.filter(product => product.domestic == isDomestic).sort((a, b) => a.name.localeCompare(b.name));
- return sortedProducts;
+export function sortAndGroupByDomestic(products: Product[], isDomestic: boolean): Product[] {
+  const sortedProducts = products.filter(product => product.domestic == isDomestic).sort((a, b) => a.name.localeCompare(b.name));
+  return sortedProducts;
 }
 
-export function totalPrice(products : Product[]) : number{
-    const totalPrice = products.reduce((total, product) => {
-        return total + product.price;
-      }, 0);
-    
-      return totalPrice;
+export function totalPrice(products: Product[]): number {
+  const totalPrice = products.reduce((total, product) => {
+    return total + product.price;
+  }, 0);
+
+  return totalPrice;
 }
 
-export function totalCount(products: Product[]) : number{
+export function totalCount(products: Product[]): number {
   return products.length;
 }
 
